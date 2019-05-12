@@ -2,9 +2,10 @@
   "name": "react-horn",
   "version": "0.0.1",
   "description": "cross component communication with actions",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/horn.js",
+  "module": "dist/horn.esm.js",
   "scripts": {
+    "clean": "rm -rf ./dist/",
     "build": "bunchee ./src/index.js"
   },
   "repository": {
