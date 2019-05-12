@@ -1,0 +1,9 @@
+{
+  "name": "react-horn",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {},
+  "author": "huozhi",
+  "license": "MIT"
+}
