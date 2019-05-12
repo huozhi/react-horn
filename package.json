@@ -1,9 +1,25 @@
 {
   "name": "react-horn",
   "version": "0.0.1",
-  "description": "",
+  "description": "cross component communication with actions",
   "main": "dist/index.js",
-  "scripts": {},
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huozhi/react-horn.git"
+  },
+  "keywords": [
+    "react",
+    "dispatch",
+    "action",
+    "broadcast",
+    "smart-listener"
+  ],
   "author": "huozhi",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/huozhi/react-horn/issues"
+  },
+  "homepage": "https://github.com/huozhi/react-horn#readme"
 }
