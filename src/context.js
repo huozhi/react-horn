@@ -1,8 +1,8 @@
-import { createContext } from "react";
+import React from "react";
 
-function noop() {}
+function noop() {};
 
-const HornContext = createContext({
+const HornContext = React.createContext({
   dispatch: noop,
   addInstance: noop,
   removeInstance: noop

@@ -57,3 +57,7 @@ render(
   document.getElementById("root")
 );
 ```
+
+## Playground
+
+[codesandbox example](https://codesandbox.io/s/njm193jr)

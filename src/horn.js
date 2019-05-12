@@ -1,32 +1,38 @@
 import React from "react";
 import HornContext from "./context";
 
-class Provider extends React.Component {
-  instancePool = {};
-
-  addInstance = (key, instance) => {
-    this.instancePool[key] = instance;
+function createHore() {
+  const instancePool = {};
+  function addInstance(key, instance) {
+    instancePool[key] = instance;
   };
 
-  removeInstance = key => {
-    delete this.instancePool[key];
+  function removeInstance(key) {
+    delete instancePool[key];
   };
 
-  dispatch = (type, payload) => {
-    const pool = this.instancePool;
-    Object.keys(pool).forEach(key => {
-      const instance = pool[key];
+  function dispatch(type, payload) {
+    Object.keys(instancePool).forEach(key => {
+      const instance = instancePool[key];
       if (instance.props.on === type) {
         instance.props.handler({ type, payload });
       }
     });
   };
 
-  manager = {
-    addInstance: this.addInstance,
-    removeInstance: this.removeInstance,
-    dispatch: this.dispatch
+  return {
+    addInstance,
+    removeInstance,
+    dispatch,
   };
+}
+
+class Provider extends React.Component {
+  constructor(props) {
+    super(props);
+    this.manager = createHore(); 
+  }
+
 
   render() {
     return (
@@ -38,11 +44,17 @@ class Provider extends React.Component {
 }
 
 class Subscriber extends React.Component {
-  static contextType = HornContext;
-  _uniqId =
-    Math.random()
-      .toString(36)
-      .substring(2) + new Date().getTime().toString(36);
+  constructor(props) {
+    super(props);
+    this._uniqId =
+      Math.random()
+        .toString(36)
+        .substring(2) + new Date().getTime().toString(36);
+
+    this.eventProxy = event => {
+      return this.props.handler(event);
+    };
+  }
 
   componentDidMount() {
     this.context.addInstance(this._uniqId, this);
@@ -52,18 +64,15 @@ class Subscriber extends React.Component {
     this.context.removeInstance(this._uniqId, this);
   }
 
-  eventProxy = event => {
-    return this.props.handler(event);
-  };
-
   render() {
     return null;
   }
 }
 
+Subscriber.contextType = HornContext;
+
 function withHorn(WrappedComponent) {
-  return class WithHornDispatch extends React.Component {
-    static contextType = HornContext;
+  class WithHornDispatch extends React.Component {
     render() {
       return React.createElement(WrappedComponent, {
         ...this.props,
@@ -71,6 +80,8 @@ function withHorn(WrappedComponent) {
       });
     }
   };
+  WithHornDispatch.contextType = HornContext;
+  return WithHornDispatch;
 }
 
 export { Provider, Subscriber, withHorn };

@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "cross component communication with actions",
   "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "scripts": {
+    "build": "bunchee ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/huozhi/react-horn/issues"
   },
-  "homepage": "https://github.com/huozhi/react-horn#readme"
+  "homepage": "https://github.com/huozhi/react-horn#readme",
+  "devDependencies": {
+    "bunchee": "^0.2.1",
+    "react": "^16.8.6"
+  }
 }
