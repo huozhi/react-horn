@@ -2,10 +2,10 @@ import { createContext } from "react";
 
 function noop() {}
 
-const ActionHubContext = createContext({
+const HornContext = createContext({
   dispatch: noop,
   addInstance: noop,
   removeInstance: noop
 });
 
-export default ActionHubContext;
+export default HornContext;

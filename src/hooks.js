@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import ActionHubContext from "./context";
+import HornContext from "./context";
 
-function useDispatch() {
-  return useContext(ActionHubContext).dispatch;
+function useHorn() {
+  return useContext(HornContext).dispatch;
 }
 
-export { useDispatch };
+export { useHorn };

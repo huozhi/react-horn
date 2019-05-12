@@ -1,5 +1,5 @@
 import React from "react";
-import ActionHubContext from "./context";
+import HornContext from "./context";
 
 class Provider extends React.Component {
   instancePool = {};
@@ -30,15 +30,15 @@ class Provider extends React.Component {
 
   render() {
     return (
-      <ActionHubContext.Provider value={this.manager}>
+      <HornContext.Provider value={this.manager}>
         {this.props.children}
-      </ActionHubContext.Provider>
+      </HornContext.Provider>
     );
   }
 }
 
 class Subscriber extends React.Component {
-  static contextType = ActionHubContext;
+  static contextType = HornContext;
   _uniqId =
     Math.random()
       .toString(36)
@@ -63,7 +63,7 @@ class Subscriber extends React.Component {
 
 function withHorn(WrappedComponent) {
   return class WithHornDispatch extends React.Component {
-    static contextType = ActionHubContext;
+    static contextType = HornContext;
     render() {
       return React.createElement(WrappedComponent, {
         ...this.props,
