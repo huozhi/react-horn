@@ -25,6 +25,9 @@
     "url": "https://github.com/huozhi/react-horn/issues"
   },
   "homepage": "https://github.com/huozhi/react-horn#readme",
+  "peerDependencies": {
+    "react": ">= 16"
+  },
   "devDependencies": {
     "bunchee": "^0.2.1",
     "react": "^16.8.6"
