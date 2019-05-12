@@ -8,6 +8,10 @@
     "clean": "rm -rf ./dist/",
     "build": "bunchee ./src/index.js"
   },
+  "files": [
+    "dist",
+    "*.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/huozhi/react-horn.git"
