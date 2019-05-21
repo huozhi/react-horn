@@ -7,9 +7,12 @@ React works based on state/props changes. Corss communication may let you hoist 
 
 ## API
 
-### <Horn.Provider>
+### <Horn.Provider event={event: Event}>
 
 Wrap the `Provider` on your component to make it avaible for broadcast events for any nested component wrapped by `withHorn` and functional component using `useHorn`
+
+`event` is Node.js standard event like instance, at least require it to have `on`, `off`, `emit` 3 methods.
+you can create your own event which holding these 3 methods, and pass it to `Horn.Provider`.
 
 ### withHorn
 
@@ -26,6 +29,7 @@ React hooks API has same function comparing to `withHorn`.
 ## Usage
 
 ```js
+import EventEmitter from "events"
 import Horn, { withHorn } from "react-horn";
 import { useHorn } from "react-horn/hooks";
 
@@ -34,28 +38,32 @@ const Dialer = () => {
     console.log(action.type + ":", action.payload); // ack: 2
   }
 
-  const dispatch = useHorn();
+  const emit = useHorn();
   return (
-    <button onClick={() => dispatch("syn", 1)}>
+    <button onClick={() => emit("syn", 1)}>
       syn
       <Horn.Subscriber on={"ack"} handler={onAck} />
     </button>
   );
 };
 
-const Feedback = withHorn(({ dispatch }) => {
+const Feedback = withHorn(({ emit }) => {
   return (
-    <Horn.Subscriber on={"syn"} handler={() => dispatch("ack", 2)} />
+    <Horn.Subscriber on={"syn"} handler={() => emit("ack", 2)} />
   );
 });
 
+const event = new EventEmitter();
+
 render(
-  <Horn.Provider>
+  <Horn.Provider event={event}>
     <Dialer />
     <Feedback />
   </Horn.Provider>,
   document.getElementById("root")
 );
+
+event.emit('syn');
 ```
 
 ## Playground
